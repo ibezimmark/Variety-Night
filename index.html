@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Will Be Attending — All Shades, One Stage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0b0c;
+    --panel:#141414;
+    --panel-2:#1b1a17;
+    --gold:#c9a227;
+    --gold-light:#e7c765;
+    --cream:#f6f1e6;
+    --muted:#a7a29a;
+    --line: rgba(201,162,39,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(201,162,39,0.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(201,162,39,0.07), transparent 55%),
+      var(--ink);
+    color:var(--cream);
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+  }
+
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:56px 0 30px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    letter-spacing:0.35em;
+    font-size:11px;
+    color:var(--gold-light);
+    text-transform:uppercase;
+    margin-bottom:18px;
+    font-weight:500;
+  }
+  .eyebrow::before, .eyebrow::after{
+    content:'';
+    display:inline-block;
+    width:28px;height:1px;
+    background:var(--gold);
+    vertical-align:middle;
+    margin:0 10px 3px;
+  }
+  h1.title{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:clamp(38px, 7vw, 72px);
+    line-height:1.02;
+    margin:0 0 6px;
+  }
+  h1.title span{color:var(--gold);font-style:italic;font-weight:700;}
+  .subtitle{
+    font-family:'Playfair Display', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:clamp(16px,2.4vw,22px);
+    color:var(--muted);
+    margin-top:6px;
+  }
+
+  /* ---------- MAIN GRID ---------- */
+  main{padding:56px 0 40px;}
+  .grid{
+    display:grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap:48px;
+    align-items:start;
+  }
+  @media (max-width: 880px){
+    .grid{grid-template-columns:1fr; gap:36px;}
+    .stage{order:-1;}
+  }
+
+  /* ---------- CONTROLS PANEL ---------- */
+  .panel{
+    background:linear-gradient(180deg, var(--panel), var(--panel-2));
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:32px 28px;
+  }
+  .panel h2{
+    font-family:'Playfair Display', serif;
+    font-size:22px;
+    margin:0 0 6px;
+    color:var(--gold-light);
+  }
+  .panel p.lede{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.65;
+    margin:0 0 26px;
+  }
+
+  .step{
+    display:flex;
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .step .num{
+    flex:0 0 auto;
+    width:26px;height:26px;
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;
+    font-weight:600;
+    margin-top:2px;
+  }
+  .step .body{flex:1;}
+  .step label.step-title{
+    display:block;
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--cream);
+    margin-bottom:8px;
+    font-weight:600;
+  }
+
+  .upload-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+    padding:11px 18px;
+    font-size:13px;
+    letter-spacing:0.03em;
+    border-radius:2px;
+    cursor:pointer;
+    transition:background .18s ease, color .18s ease;
+    font-family:'Poppins',sans-serif;
+  }
+  .upload-btn:hover{background:var(--gold); color:#1a1608;}
+  input[type=file]{display:none;}
+  .filename{
+    display:block;
+    margin-top:10px;
+    font-size:12px;
+    color:var(--muted);
+    word-break:break-all;
+  }
+
+  input[type=range]{
+    -webkit-appearance:none;
+    width:100%;
+    height:2px;
+    background:var(--line);
+    border-radius:2px;
+    outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:15px;height:15px;
+    border-radius:50%;
+    background:var(--gold);
+    cursor:pointer;
+    border:2px solid var(--ink);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:15px;height:15px;
+    border-radius:50%;
+    background:var(--gold);
+    cursor:pointer;
+    border:2px solid var(--ink);
+  }
+  .hint{font-size:11.5px; color:var(--muted); margin-top:8px;}
+
+  .actions{
+    display:flex;
+    gap:12px;
+    margin-top:30px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    flex:1 1 auto;
+    padding:14px 18px;
+    font-size:13px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    border-radius:2px;
+    cursor:pointer;
+    border:1px solid var(--gold);
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    text-align:center;
+  }
+  .btn-primary{
+    background:var(--gold);
+    color:#1a1608;
+  }
+  .btn-primary:hover{background:var(--gold-light);}
+  .btn-primary:disabled{
+    background:transparent;
+    color:var(--muted);
+    border-color:var(--line);
+    cursor:not-allowed;
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--gold-light);
+  }
+  .btn-ghost:hover{background:rgba(201,162,39,0.1);}
+
+  /* ---------- STAGE / CANVAS ---------- */
+  .stage{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .canvas-shell{
+    position:relative;
+    width:100%;
+    max-width:500px;
+    border:1px solid var(--line);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+  }
+  canvas{
+    display:block;
+    width:100%;
+    height:auto;
+    touch-action:none;
+    cursor:grab;
+    background:#000;
+  }
+  canvas.dragging{cursor:grabbing;}
+  .stage-caption{
+    margin-top:16px;
+    font-size:11.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    text-align:center;
+  }
+  .stage-caption b{color:var(--gold-light); font-weight:600;}
+
+  /* ---------- EVENT STRIP ---------- */
+  .event-strip{
+    margin-top:60px;
+    border-top:1px solid var(--line);
+    padding-top:30px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    text-align:center;
+  }
+  @media (max-width:640px){ .event-strip{grid-template-columns:1fr;} }
+  .event-strip .item .k{
+    font-size:10.5px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:8px;
+  }
+  .event-strip .item .v{
+    font-family:'Playfair Display', serif;
+    font-size:19px;
+    color:var(--cream);
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:26px 0 40px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    letter-spacing:0.03em;
+  }
+  footer b{color:var(--gold-light);}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Abia TechRise Cohort 3.0 &middot; Learn Pathway &amp; TechRise</div>
+    <h1 class="title">All Shades, <span>One Stage</span></h1>
+    <div class="subtitle">A Night With The Risers 2.0</div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- CONTROLS -->
+      <section class="panel">
+        <h2>Put yourself on the poster</h2>
+        <p class="lede">Add your photo to the mic, then download your own "I Will Be Attending" flyer to share on WhatsApp, Instagram, or your status.</p>
+
+        <div class="step">
+          <div class="num">1</div>
+          <div class="body">
+            <label class="step-title">Upload your photo</label>
+            <label class="upload-btn" for="photoInput">Choose Photo
+              <input type="file" id="photoInput" accept="image/*">
+            </label>
+            <span class="filename" id="fileName">No photo selected yet</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div class="body">
+            <label class="step-title">Zoom &amp; position</label>
+            <input type="range" id="zoomRange" min="100" max="300" value="100" disabled>
+            <div class="hint">Drag your photo on the poster to reposition it inside the mic. Use the slider to zoom in or out.</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-ghost" id="resetBtn" type="button">Reset</button>
+          <button class="btn btn-primary" id="downloadBtn" type="button" disabled>Download Flyer</button>
+        </div>
+      </section>
+
+      <!-- CANVAS -->
+      <section class="stage">
+        <div class="canvas-shell">
+          <canvas id="canvas" width="720" height="1000"></canvas>
+        </div>
+        <div class="stage-caption">Drag inside the mic to reposition &middot; <b>I Will Be Attending</b></div>
+      </section>
+
+    </div>
+
+    <div class="event-strip">
+      <div class="item">
+        <div class="k">Date</div>
+        <div class="v">Friday, 3rd July 2026</div>
+      </div>
+      <div class="item">
+        <div class="k">Time</div>
+        <div class="v">9:00 PM</div>
+      </div>
+      <div class="item">
+        <div class="k">Venue</div>
+        <div class="v">Hotel De La Paix, Aba</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Presented by <b>Abia TechRise Cohort 3.0</b> in partnership with Learn Pathway &amp; TechRise &middot; For enquiries 08164394788 / 08063977832
+  </div>
+</footer>
+
+<script>
+(function(){
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const photoInput = document.getElementById('photoInput');
+  const fileNameEl = document.getElementById('fileName');
+  const zoomRange = document.getElementById('zoomRange');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  // Natural flyer dimensions
+  const W = 720, H = 1235;
+
+  // Ellipse mask matching the mic grille position on the flyer
+  const mask = { cx: 585, cy: 355, rx: 108, ry: 96 };
+
+  const flyer = new Image();
+  flyer.src = "vn.jpeg";
+
+  let userImg = null;
+  let baseScale = 1;      // scale that makes the photo cover the mask box
+  let zoomFactor = 1;     // 1.0 - 3.0 from slider
+  let offsetX = 0, offsetY = 0; // user pan, in canvas px
+
+  function drawPlaceholder(){
+    ctx.save();
+    ctx.beginPath();
+    ctx.ellipse(mask.cx, mask.cy, mask.rx, mask.ry, 0, 0, Math.PI*2);
+    ctx.clip();
+    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+    ctx.fillRect(mask.cx-mask.rx-4, mask.cy-mask.ry-4, mask.rx*2+8, mask.ry*2+8);
+    ctx.restore();
+
+    ctx.save();
+    ctx.strokeStyle = 'rgba(231,199,101,0.9)';
+    ctx.setLineDash([6,6]);
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.ellipse(mask.cx, mask.cy, mask.rx, mask.ry, 0, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.fillStyle = '#e7c765';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '600 20px Poppins, sans-serif';
+    ctx.fillText('Upload a photo', mask.cx, mask.cy - 6);
+    ctx.font = '400 14px Poppins, sans-serif';
+    ctx.fillStyle = '#c8c1b3';
+    ctx.fillText('to appear here', mask.cx, mask.cy + 18);
+    ctx.restore();
+  }
+
+  function drawRibbon(){
+    const text = 'I WILL BE ATTENDING';
+    const cx = mask.cx;
+    const cy = mask.cy + mask.ry - 14;
+    const angle = -0.06;
+    const width = mask.rx * 2 + 46;
+    const height = 34;
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle);
+
+    // shadow
+    ctx.shadowColor = 'rgba(0,0,0,0.45)';
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetY = 3;
+
+    const grad = ctx.createLinearGradient(-width/2, 0, width/2, 0);
+    grad.addColorStop(0, '#a9821c');
+    grad.addColorStop(0.5, '#e7c765');
+    grad.addColorStop(1, '#a9821c');
+    ctx.fillStyle = grad;
+    ctx.fillRect(-width/2, -height/2, width, height);
+
+    ctx.shadowColor = 'transparent';
+    ctx.strokeStyle = '#1a1608';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(-width/2, -height/2, width, height);
+
+    ctx.fillStyle = '#1a1608';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    let fontSize = 16;
+    ctx.font = `700 ${fontSize}px Poppins, sans-serif`;
+    while (ctx.measureText(text).width > width - 16 && fontSize > 9){
+      fontSize -= 1;
+      ctx.font = `700 ${fontSize}px Poppins, sans-serif`;
+    }
+    ctx.fillText(text, 0, 1);
+    ctx.restore();
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(flyer, 0, 0, W, H);
+
+    if (userImg){
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(mask.cx, mask.cy, mask.rx, mask.ry, 0, 0, Math.PI*2);
+      ctx.clip();
+
+      const w = userImg.width * baseScale * zoomFactor;
+      const h = userImg.height * baseScale * zoomFactor;
+      const x = mask.cx - w/2 + offsetX;
+      const y = mask.cy - h/2 + offsetY;
+      ctx.drawImage(userImg, x, y, w, h);
+      ctx.restore();
+
+      ctx.save();
+      ctx.strokeStyle = '#e7c765';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.ellipse(mask.cx, mask.cy, mask.rx, mask.ry, 0, 0, Math.PI*2);
+      ctx.stroke();
+      ctx.restore();
+    } else {
+      drawPlaceholder();
+    }
+
+    drawRibbon();
+  }
+
+  flyer.onload = draw;
+
+  // ---- Photo upload ----
+  photoInput.addEventListener('change', function(e){
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    fileNameEl.textContent = file.name;
+
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      const img = new Image();
+      img.onload = function(){
+        userImg = img;
+        offsetX = 0; offsetY = 0;
+        zoomFactor = 1;
+        zoomRange.value = 100;
+        zoomRange.disabled = false;
+        downloadBtn.disabled = false;
+        baseScale = Math.max((mask.rx*2)/img.width, (mask.ry*2)/img.height);
+        draw();
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // ---- Zoom slider ----
+  zoomRange.addEventListener('input', function(){
+    zoomFactor = Number(zoomRange.value) / 100;
+    draw();
+  });
+
+  // ---- Reset ----
+  resetBtn.addEventListener('click', function(){
+    userImg = null;
+    offsetX = 0; offsetY = 0;
+    zoomFactor = 1;
+    zoomRange.value = 100;
+    zoomRange.disabled = true;
+    downloadBtn.disabled = true;
+    photoInput.value = '';
+    fileNameEl.textContent = 'No photo selected yet';
+    draw();
+  });
+
+  // ---- Drag to reposition ----
+  let dragging = false;
+  let lastX = 0, lastY = 0;
+
+  function toCanvasCoords(clientX, clientY){
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = W / rect.width;
+    const scaleY = H / rect.height;
+    return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+  }
+
+  function insideMask(px, py){
+    const dx = (px - mask.cx) / mask.rx;
+    const dy = (py - mask.cy) / mask.ry;
+    return (dx*dx + dy*dy) <= 1;
+  }
+
+  canvas.addEventListener('pointerdown', function(e){
+    if (!userImg) return;
+    const p = toCanvasCoords(e.clientX, e.clientY);
+    if (!insideMask(p.x, p.y)) return;
+    dragging = true;
+    lastX = p.x; lastY = p.y;
+    canvas.classList.add('dragging');
+    canvas.setPointerCapture(e.pointerId);
+  });
+
+  canvas.addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    const p = toCanvasCoords(e.clientX, e.clientY);
+    offsetX += (p.x - lastX);
+    offsetY += (p.y - lastY);
+    lastX = p.x; lastY = p.y;
+    draw();
+  });
+
+  function endDrag(e){
+    dragging = false;
+    canvas.classList.remove('dragging');
+  }
+  canvas.addEventListener('pointerup', endDrag);
+  canvas.addEventListener('pointercancel', endDrag);
+  canvas.addEventListener('pointerleave', endDrag);
+
+  // ---- Download ----
+  downloadBtn.addEventListener('click', function(){
+    if (!userImg) return;
+    const link = document.createElement('a');
+    link.download = 'i-will-be-attending-all-shades-one-stage.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  draw();
+})();
+</script>
+</body>
+</html>
